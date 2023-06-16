@@ -22,7 +22,7 @@ class OpenAiService
         
         $complete =  $open_ai->completion([
             'model' => 'text-davinci-003',
-            'prompt' => ('thanks to this message : '.$commitMsg . "\n and to this changes that have been release on this commit :". $commitContent . "\n Explain what happens in the code, you have to show code with your explainations (it's for a tutorial). "),
+            'prompt' => ('thanks to this message : '.$commitMsg . "\n and to this changes that have been release on this commit :". $commitContent . "\n Explain what happens in the code, and quote de code with '<blockquote></blockquote>' (it's for a tutorial). "),
             'max_tokens' => 1000,
             'frequency_penalty' => 0.5,
             'presence_penalty' => 0,
