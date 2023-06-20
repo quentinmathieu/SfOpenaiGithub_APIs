@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello GithubController!{% endblock %}
+{% block title %}Hello OpenAIController!{% endblock %}
 
 {% block body %}
 <style>
@@ -9,12 +9,11 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    {% for message, step in steps %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/laragon/www/projects/OpenaITest/src/Controller/GithubController.php'|file_link(0) }}">src/Controller/GithubController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/laragon/www/projects/OpenaITest/templates/github/index.html.twig'|file_link(0) }}">templates/github/index.html.twig</a></code></li>
-    </ul>
+        <h2>{{ message }}</h2>
+        {{ step | raw }}
+    {% endfor %}
+
 </div>
 {% endblock %}

@@ -77,8 +77,8 @@ class GithubService
 
             //foreach file that has been modified/added, get the diff code in a range limit of 1000 characters
             foreach($commit['files'] as $file){
-                if (isset($file['patch']) && strlen($file['patch']) < 1000){
-                    $filesDiff.= $file['filename'] . " (". $file['status'] . ") : ".$file['patch'] . "\n";
+                if (isset($file['patch']) && strlen(str_replace("\n", "", $file['patch'])) < 1000){
+                    $filesDiff.= $file['filename'] . " (". $file['status'] . ") : ".str_replace("\n\n", "", $file['patch']) . "\n";
                 }
                 else{
                     $filesDiff.= $file['filename'] . " (". $file['status'] . ") : " . "outOfRange..." . "\n";
@@ -87,11 +87,9 @@ class GithubService
 
             //if the diff code is too long, cut it to 3500 characters
             $filesDiff = (strlen($filesDiff) > 3500) ? substr($filesDiff, 0, 3500) . "outOfRange..." : $filesDiff;
-
+           
             //add the commit message & diff code to an array
-            $allCommitsMsgContent[] = [
-                $commit['commit']['message'] => $filesDiff
-            ];
+            $allCommitsMsgContent[$commit['commit']['message']] = $filesDiff;
         }
 
 

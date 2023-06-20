@@ -12,7 +12,7 @@ class OpenAiService
         
     }
 
-    public function getCommitExplaination(string $commitMsg, string $commitContent) : string
+    public function getCommitExplaination(string $commitMsg, string $commitContent, int $stepNumber) : string
     {
         $open_ai_key = $this->param->get('OPENAI_API_KEY');
 
@@ -22,8 +22,7 @@ class OpenAiService
         
         $complete =  $open_ai->completion([
             'model' => 'text-davinci-003',
-            'prompt' => ('thanks to this message : '.$commitMsg . "\n and to this changes that have been release on this commit :". $commitContent . "\n Explain what happens in the code, and quote de code with '<code></code>' (it's for a tutorial). "),
-            'max_tokens' => 100,
+            'prompt' => ('thanks to this message : '.$commitMsg . "\n and to this changes that have been release on this commit :". $commitContent . "\n , For each file (if it's pertinent) explain what happens in the code , and quote the code with '<code></code>' (it's for a tutorial);the actuel step in this tutorial is :" . $stepNumber),
             'frequency_penalty' => 0.5,
             'presence_penalty' => 0,
         ]);
