@@ -14,7 +14,7 @@ class GithubController extends AbstractController
     #[Route('/github', name: 'app_github')]
     public function index(Request $request, GithubService $github, OpenAiService $openAi): Response
     {
-        $repoUrl = 'https://api.github.com/repos/quentinmathieu/Github_API/commits';
+        $repoUrl = 'https://api.github.com/repos/quentinmathieu/SfOpenaiGithub_APIs/commits';
 
         $stepsAnswer = [];
         $commits = $github->getRepoContent($repoUrl);
