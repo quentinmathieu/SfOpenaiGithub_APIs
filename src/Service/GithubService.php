@@ -17,6 +17,27 @@ class GithubService
         $this->param = $param;
     }
 
+
+    // function that get all commits from a repo
+    public function getRepoCommits(string $commitUrl) : array
+    {
+        $token = $this->param->get('GITHUB_API_KEY');
+        $response = $this->client->request(
+            'GET',
+            $commitUrl,
+            [
+                'headers' => [
+                'Authorization' => 'token ' . $token,
+                ],
+            ]
+        );
+
+        $commits = $response->toArray();
+
+        return $commits;
+    }
+
+   
     public function getCommitContent(string $commitUrl) : array
     {
         $token = $this->param->get('GITHUB_API_KEY');
@@ -35,41 +56,45 @@ class GithubService
         return $content;
     }
 
-    // public function getRepoCommits(string $repoUrl) : array
-    // {
-    //     $token = $this->getParameter('GITHUB_API_KEY');
 
-    //     $response = $this->client->request(
-    //         'GET',
-    //         $repoUrl
-    //     );
-
-    //     $commits = $response->toArray();
-
-    //     return $commits;
-    // }
-
-    // public function getRepoContent(string $repoUrl) : array
-    // {
+    // function that get all commits with msg & diff code from a repo
+    public function getRepoContent(string $repoUrl) : array
+    {
         
 
-    //     //get all (SHA) commits from a repo
-    //     $repoCommits = $this->getRepoCommits($repoUrl);
-
-    //     dd($repoCommits);
-
-    //     $allCommitsMsgContent = [];
-    //     //get all commit content & message from each commit
-    //     foreach(array_reverse($repoCommits) as $commit){
-    //         $commit = $this->getCommitContent($repoUrl . "/".$commit['sha']);
-
-    //         $allCommitsMsgContent[] = [
-    //             $commit,
-    //         ];
-    //     }
-    //     dd($allCommitsMsgContent);
+        //get all (SHA) commits from a repo
+        $repoCommits = $this->getRepoCommits($repoUrl);
 
 
-    //     return $allCommitsMsgContent;
-    // }
+        $allCommitsMsgContent = [];
+        //get all commit content & message from each commit
+        foreach(array_reverse($repoCommits) as $commit){
+
+            //get commit content (diff code & msg)
+            $commit = $this->getCommitContent($repoUrl . "/".$commit['sha']);
+
+            $filesDiff = "";
+
+            //foreach file that has been modified/added, get the diff code in a range limit of 1000 characters
+            foreach($commit['files'] as $file){
+                if (isset($file['patch']) && strlen($file['patch']) < 1000){
+                    $filesDiff.= $file['filename'] . " (". $file['status'] . ") : ".$file['patch'] . "\n";
+                }
+                else{
+                    $filesDiff.= $file['filename'] . " (". $file['status'] . ") : " . "outOfRange..." . "\n";
+                }
+            }
+
+            //if the diff code is too long, cut it to 3500 characters
+            $filesDiff = (strlen($filesDiff) > 3500) ? substr($filesDiff, 0, 3500) . "outOfRange..." : $filesDiff;
+
+            //add the commit message & diff code to an array
+            $allCommitsMsgContent[] = [
+                $commit['commit']['message'] => $filesDiff
+            ];
+        }
+
+
+        return $allCommitsMsgContent;
+    }
 }

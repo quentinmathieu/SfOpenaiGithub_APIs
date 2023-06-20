@@ -13,15 +13,11 @@ class GithubController extends AbstractController
     #[Route('/github', name: 'app_github')]
     public function index(Request $request, GithubService $github): Response
     {
-        $repoUrl = 'https://api.github.com/repos/quentinmathieu/Github_API/commits';
-        $commitURl = 'https://api.github.com/repos/quentinmathieu/Github_API/commits/a1686c063cbb04d6d576e13fcb98f80f9b0861be';
-        $commitContent = $github->getCommitContent($commitURl);
-        dd($commitContent);
+        $repoUrl = 'https://api.github.com/repos/quentinmathieu/Projet4/commits';
+
         
-        $commitTest = $github->getRepoContent($repoUrl);
-        dd($commitTest);
         
-        $commits = $github->getRepoCommits($repoUrl);
+        $commits = $github->getRepoContent($repoUrl);
         dd($commits);
 
         return $this->render('github/index.html.twig', [
