@@ -11,10 +11,17 @@
 <div class="example-wrapper">
     {% for message, step in steps %}
 
+        {{dump(step)}}
         <h2>{{ message }}</h2>
-        {{ step | raw }}
+
+        {{ step  | raw }}
+        {% if not (step ends with '</code>') %}
+
+            </code>
+
+        {% endif %}
+        
     {% endfor %}
-    {{dump(steps)}}
 
 </div>
 {% endblock %}

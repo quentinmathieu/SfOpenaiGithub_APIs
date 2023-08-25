@@ -22,9 +22,12 @@ class OpenAiService
         
         $complete =  $open_ai->completion([
             'model' => 'text-davinci-003',
-            'prompt' => ('FOR A TUTORIAL BASED ON A GITHUB REPO, You have to explain (in a short way, MAX 100 words explainations + code include) what change in a commit and this (your all answer) is actually the '. $stepNumber.'th step in the tuto. Thanks to this message : "'.$commitMsg . '" and to this changes that have been release on this commit :"'.$commitContent . '", For each file explain what happened in the code, and quote the code that you are explaining format it like : <code class="here put the right prism.js class">content</code> for EACH line of code); i repeat : MAX 200 tokens'),
-            'max_tokens' => 250,
-            'temperature' => 0.7,
+            'prompt' => ('FOR A TUTORIAL BASED ON A GITHUB REPO, You have to explain (in a short way, MAX 100 words explainations + code include) what change in a commit and this (your all answer) is actually the '. $stepNumber.'th step in the tuto. Thanks to this message : "'.$commitMsg . '" and to this changes that have been release on this commit :"'.$commitContent . '", For each file explain what happened in the code, and you must quote at least 1 line of the code that you are explaining; format it like : <code class="here put the right prism.js class">code-content</code> for EACH line of code); i repeat : MAX 200 tokens'),
+            'temperature' => 0,
+            'max_tokens'=> 250,
+            'top_p'=> 1.0,
+            'frequency_penalty'=> 0.0,
+            'presence_penalty'=> 0.0,
         ]);
         $json = json_decode($complete, true);
         // dd($json);
