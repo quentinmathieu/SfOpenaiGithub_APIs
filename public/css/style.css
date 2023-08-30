@@ -2,21 +2,22 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'VT323', monospace;
 }
 
 :root {
-    --bc-dark: rgb(255, 251, 232);  
-    --text : rgb(41, 29, 25);
+    --bc-dark: rgb(255, 251, 232);
+    --text: rgb(41, 29, 25);
 }
 
 .light {
-    --bc-dark: rgb(255, 251, 232);  
-    --text : rgb(41, 29, 25);
+    --bc-dark: rgb(255, 251, 232);
+    --text: rgb(41, 29, 25);
 }
 
 .dark {
     --bc-dark: rgb(41, 29, 25);
-    --text : rgb(255, 251, 232);
+    --text: rgb(255, 251, 232);
 }
 
 
@@ -36,20 +37,20 @@ div {
     color: var(--text);
 }
 
-#swapColor{
+#swapColor {
     padding: 8px 10px;
     position: fixed;
-    top :10px;
-    left : 10px;
+    top: 10px;
+    left: 10px;
     border: 2px solid;
     cursor: pointer;
 }
 
-.editable{
+.editable {
     width: 100%;
 }
 
-.steps form{
+.steps form {
     position: relative;
 }
 
@@ -57,36 +58,45 @@ div {
 
 
 
-.steps input[type=text], .editable{
+.steps input[type=text],
+.editable {
     font-size: 1em;
-    color : var(--text);
-    margin:  5px !important;
+    color: var(--text);
+    margin: 5px !important;
     outline: 1px solid rgb(41, 86, 120);
     width: 100%;
 
     background-color: transparent;
-
+    border: 0px;
     padding: 12px 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    border: 1px solid transparent;
+    font-family: 'Merriweather', serif, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     outline: 1px solid transparent;
-    transition: border 0.5s ;
+    transition: outline 0.5s;
+    background: linear-gradient(to right, var(--text), var(--text)), linear-gradient(to right, var(--text), var(--text)), linear-gradient(to bottom, var(--text), var(--text)), linear-gradient(to bottom, var(--text), var(--text));
+    background-position: 0% 0%, 100% 100%, 0% 0%, 100% 100%;
+    background-size: 0% 1px, 0% 1px, 1px 0%, 1px 0%;
+    /* 2px is border thickness */
+    background-repeat: no-repeat;
+    transition: background-size cubic-bezier(.13,.52,.22,.98) 1s;
 }
 
-.steps input[type=text]{
+.steps input[type=text] {
     font-size: 1.3em;
 }
 
 
-.steps input[type=submit]{
+.steps input[type=submit] {
     display: none;
 }
 
-.steps input[type=text]:focus, .editable:focus {
-    overflow:hidden;
-    resize:none;
-    transition: border 0.5s ;
-    border: 1px solid var(--text);
+.steps input[type=text]:focus,
+.editable:focus {
+    overflow: hidden;
+    resize: none;
+    /* outline: 1px solid var(--text); */
+    background-size: 100% 1px, 100% 1px, 1px 100%, 1px 100%;  /* 2px is border thickness */
+    transition: background-size cubic-bezier(.13,.52,.22,.98) 1s;
+
 }
 
 .steps {
