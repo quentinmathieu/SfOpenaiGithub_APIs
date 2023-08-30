@@ -1,27 +1,57 @@
 <!DOCTYPE html>
-<html data-theme="dark">
+<html>
 
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    {# <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css"> #}
     <link rel="stylesheet" href="{{ asset('prism.js/prism.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     {% endblock %}
     <link rel="icon"
     href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
     <script src="https://unpkg.com/htmx.org@1.9.2"
     integrity="sha384-L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h"
     crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/70279edcf3.js" crossorigin="anonymous"></script>
+
     
 </head>
 
 <body>
-    <main class="container language-php">
-        {% block body %}{% endblock %}
-    </main>
+    <div id="swapColor" onclick="document.querySelector(':root').classList.toggle('dark');event.preventDefault();document.querySelector(':root').classList.toggle('light');localStorage.setItem('theme', document.querySelector(':root').classList.value);" title="Swap color theme">
+        <i class="fa-solid fa-circle-half-stroke" ></i>
+    </div>
+    <div id="wrapper">
+        <main class="container language-php">
+            {% block body %}{% endblock %}
+        </main>
+
+    </div>
+
     {% block javascripts %}
-    
+    <script>
+        const localStorageTheme = localStorage.getItem("theme");
+        function setTheme() {
+            console.log(localStorageTheme);
+            if (localStorageTheme !== null) {
+                document.querySelector(':root').classList.add(localStorageTheme);
+            }
+          
+            else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.querySelector(':root').classList.add('dark')
+            }
+          
+            else {document.querySelector(':root').classList.add('dark')
+          }
+
+        }
+        setTheme();
+
+        
+
+    </script>
     <script src="{{ asset('prism.js/prism.js') }}"></script>
     {% endblock %}
 </body>
