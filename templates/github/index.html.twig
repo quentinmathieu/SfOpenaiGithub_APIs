@@ -21,11 +21,6 @@
     <form>
         <div contenteditable="true"  class="editable" spellcheck="false">
             {{ step | raw}}
-            {% if not (step ends with '</code>') %}
-
-            </code>
-
-            {% endif %}
 
         </div>
         <input type="submit" value="Save">

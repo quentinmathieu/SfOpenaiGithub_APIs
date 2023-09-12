@@ -8,16 +8,19 @@
 :root {
     --bc-dark: rgb(255, 251, 232);
     --text: rgb(41, 29, 25);
+    --icoTheme : url("data:image/svg+xml,%3Csvg height='40px' width='40px' version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 473.935 473.935' xml:space='preserve' fill='%23000000'%3E%3Cg id='SVGRepo_bgCarrier' stroke-width='0'%3E%3C/g%3E%3Cg id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'%3E%3C/g%3E%3Cg id='SVGRepo_iconCarrier'%3E%3Ccircle style='fill:%23fffbe8;' cx='236.967' cy='236.967' r='236.967'%3E%3C/circle%3E%3Cpath style='fill:%23291d19;' d='M248.443,242.685c0-52.318,28.516-97.945,70.832-122.289c-15.757-6.601-33.055-10.26-51.21-10.26 c-73.204,0-132.549,59.341-132.549,132.549c0,73.201,59.341,132.549,132.549,132.549c18.155,0,35.453-3.663,51.21-10.267 C276.96,340.63,248.443,294.995,248.443,242.685z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
 }
 
 .light {
     --bc-dark: rgb(255, 251, 232);
     --text: rgb(41, 29, 25);
+    --icoTheme : url("data:image/svg+xml,%3Csvg height='30px' width='30px' version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 473.935 473.935' xml:space='preserve' fill='%23000000'%3E%3Cg id='SVGRepo_bgCarrier' stroke-width='0'%3E%3C/g%3E%3Cg id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'%3E%3C/g%3E%3Cg id='SVGRepo_iconCarrier'%3E%3Ccircle style='fill:%23fffbe8;' cx='236.967' cy='236.967' r='236.967'%3E%3C/circle%3E%3Cpath style='fill:%23291d19;' d='M248.443,242.685c0-52.318,28.516-97.945,70.832-122.289c-15.757-6.601-33.055-10.26-51.21-10.26 c-73.204,0-132.549,59.341-132.549,132.549c0,73.201,59.341,132.549,132.549,132.549c18.155,0,35.453-3.663,51.21-10.267 C276.96,340.63,248.443,294.995,248.443,242.685z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
 }
 
 .dark {
-    --bc-dark: rgb(41, 29, 25);
-    --text: rgb(255, 251, 232);
+    --bc-dark: #291d19;
+    --icoTheme : url("data:image/svg+xml,%3Csvg width='30px' height='30px' viewBox='-2.4 -2.4 28.80 28.80' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='SVGRepo_bgCarrier' stroke-width='0'%3E%3C/g%3E%3Cg id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'%3E%3C/g%3E%3Cg id='SVGRepo_iconCarrier'%3E%3Cpath d='M7.28451 10.3333C7.10026 10.8546 7 11.4156 7 12C7 14.7614 9.23858 17 12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C11.4156 7 10.8546 7.10026 10.3333 7.28451' stroke='%23fffbe8' stroke-width='1.5' stroke-linecap='round'%3E%3C/path%3E%3Cpath d='M12 2V4' stroke='%23fffbe8' stroke-width='1.5' stroke-linecap='round'%3E%3C/path%3E%3Cpath d='M12 20V22' stroke='%23fffbe8' stroke-width='1.5' stroke-linecap='round'%3E%3C/path%3E%3Cpath d='M4 12L2 12' stroke='%23fffbe8' stroke-width='1.5' stroke-linecap='round'%3E%3C/path%3E%3Cpath d='M22 12L20 12' stroke='%23fffbe8' stroke-width='1.5' stroke-linecap='round'%3E%3C/path%3E%3Cpath d='M19.7778 4.22266L17.5558 6.25424' stroke='%23fffbe8' stroke-width='1.5' stroke-linecap='round'%3E%3C/path%3E%3Cpath d='M4.22217 4.22266L6.44418 6.25424' stroke='%23fffbe8' stroke-width='1.5' stroke-linecap='round'%3E%3C/path%3E%3Cpath d='M6.44434 17.5557L4.22211 19.7779' stroke='%23fffbe8' stroke-width='1.5' stroke-linecap='round'%3E%3C/path%3E%3Cpath d='M19.7778 19.7773L17.5558 17.5551' stroke='%23fffbe8' stroke-width='1.5' stroke-linecap='round'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+    --text: #fffbe8;
 }
 
 
@@ -38,13 +41,28 @@ div {
 }
 
 #swapColor {
-    padding: 8px 10px;
+    padding: 10px 10px 50px 50px;
     position: fixed;
-    top: 10px;
-    left: 10px;
+    top: 12px;
+    left: -55px;
     border: 2px solid;
     cursor: pointer;
+    transform: rotateY(0deg) rotate(45deg);
+    background-color: var(--text);
+    
 }
+
+#swapColor i{
+    font-size: 1.5em;
+    color : var(--text);
+    transition: color 1s;
+    transform: rotateY(0deg) rotate(-45deg);
+    content:  var(--icoTheme);
+    background-color: var(--bc-dark);
+    border-radius: 50%;
+
+}
+
 
 .editable {
     width: 100%;

@@ -22,17 +22,39 @@ class OpenAiService
         
         $complete =  $open_ai->completion([
             'model' => 'text-davinci-003',
-            'prompt' => ('FOR A TUTORIAL BASED ON A GITHUB REPO, You have to explain (in a short way, MAX 150 words explainations + code included) what change in a commit and this (your all answer) is actually the '. $stepNumber.'th step in the tuto. Thanks to this message : "'.$commitMsg . '" and to this changes that have been release on this commit :"'.$commitContent . '", You MUST quote the code : format it for prism.css with pre, code etc tags; use the <code> tag for a short quote or file\'s names; i repeat : MAX 300 tokens'),
+            'prompt' => ('In this tutorial, we are documenting changes made in a GitHub repository commit. You are currently on step ' . $stepNumber . '. Your objective is to provide a detailed explanation, including code snippets, of what changes were introduced in this specific commit. Please make sure your response adheres to the following guidelines:\n\n' .
+        
+            '1. Explanation (Maximum 200 tokens):\n' .
+            '   - Clearly describe the purpose and impact of this commit.\n' .
+            
+            '2. Code Inclusion (Maximum 200 tokens):\n' .
+            '   - Include relevant code snippets that demonstrate the changes.\n' .
+            '   - Use Prism.css code blocks with <pre> and <code> tags for all code snippets.\n' .
+            '   - When referencing short code snippets or file names, wrap them in <code> tags.\n' .
+            '   - Ensure that all code blocks are properly closed to maintain correct formatting.\n\n' .
+            
+            'Refer to the commit message for this step: "' . $commitMsg . '" and provide a comprehensive explanation of the changes made in this commit: "' . $commitContent . '".\n\n' .
+            
+            'Your total response, including explanations and code, should not exceed 400 tokens. Be concise, clear, and informative. Your contribution to this tutorial is invaluable.'),
             'temperature' => 0,
-            'max_tokens'=> 250,
+            'max_tokens'=> 500,
             'top_p'=> 1.0,
             'frequency_penalty'=> 0.0,
             'presence_penalty'=> 0.0,
         ]);
         $json = json_decode($complete, true);
-        // dd($json);
-    
-        // dd($json['choices'][0]['text']);
-        return $json['choices'][0]['text'];
+        $string = str_replace('Explanation (200 tokens):', '', $json['choices'][0]['text']);
+        $string = str_replace('Code Inclusion (200 tokens):', '', $string);
+
+
+        //close unclose tags
+        $dom = new \DOMDocument();
+
+        // @ is avoids warnings
+        @$dom->loadHTML($string, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        $result = $dom->saveHTML();  
+
+        return $result;
     }
 }

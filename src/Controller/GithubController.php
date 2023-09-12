@@ -19,13 +19,16 @@ class GithubController extends AbstractController
         $stepsAnswer = [];
         $commits = $github->getRepoContent($repoUrl);
         $stepNumber = 1;
-        
         foreach($commits as $commitMsg => $commitContent){
-            $stepsAnswer[$commitMsg] = $openAi->getCommitExplaination($commitMsg, $commitContent, $stepNumber);
-            $stepNumber++;
-            if($stepNumber > 1){
+            if($stepNumber > 6){
                 break;
             }
+            if($stepNumber > 3){
+                $stepsAnswer[$stepNumber.".".$commitMsg] = $openAi->getCommitExplaination($commitMsg, $commitContent, $stepNumber);
+                 break;
+            }
+                $stepNumber++;
+            
             
         }
 
