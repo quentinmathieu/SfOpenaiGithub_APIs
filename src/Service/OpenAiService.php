@@ -47,7 +47,7 @@ class OpenAiService
         $string = str_replace('Code Inclusion (200 tokens):', '', $string);
 
 
-        //close unclose tags
+        //close unclosed tags
         $dom = new \DOMDocument();
 
         // @ is avoids warnings
