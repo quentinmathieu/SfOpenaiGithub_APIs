@@ -97,6 +97,12 @@ div {
     transition: background-size cubic-bezier(.13, .52, .22, .98) 1s;
 }
 
+strong{
+    color :rgb(0 89 169);
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
 .steps input[type=text] {
     font-size: 1.3em;
 }
